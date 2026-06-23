@@ -508,7 +508,6 @@ body::before {
 }
 
 /* ── States ── */
-
 .empty-state {
   text-align: center;
   padding: 48px 28px;
@@ -575,6 +574,14 @@ body::before {
   padding: 24px;
   font-size: 0.8rem;
   color: var(--text-muted);
+}
+
+.uuid-value {
+  font-family: ui-monospace, 'Cascadia Code', 'Segoe UI Mono', monospace;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  word-break: break-all;
+  max-width: 220px;
 }
 
 /* ── Responsive ── */

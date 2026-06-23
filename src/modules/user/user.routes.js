@@ -8,5 +8,7 @@ apiRouter.get('/', userController.getUsers);
 apiRouter.get('/:id', userController.getUserById);
 
 formRouter.post('/', userController.createUser);
+formRouter.put('/:id', userController.updateUser);
+formRouter.post('/:id', userController.updateUser);
 
 export { apiRouter, formRouter };

@@ -28,4 +28,16 @@ const getUserById = async (req, res) => {
   }
 };
 
-export default { createUser, getUsers, getUserById };
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await userService.updateUser(id, req.body);
+    res.redirect(`/user.html?id=${id}&updated=1`);
+  } catch (err) {
+    const message = encodeURIComponent(err.message);
+    res.redirect(`/edit.html?id=${id}&error=${message}`);
+  }
+};
+
+export default { createUser, getUsers, getUserById, updateUser };
