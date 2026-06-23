@@ -4,4 +4,9 @@ const createUser = async (data) => {
   return await create(data);
 };
 
-export default { createUser };
+const getUsers = async () => {
+  return await User.findAll();
+};
+
+
+export default { createUser, getUsers };
