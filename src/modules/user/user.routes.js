@@ -1,10 +1,12 @@
-const router = require('express').Router();
-import { createUser } from './user.controller';
+import express from 'express';
+import userController from './user.controller.js';
 
-// CREATE ROUTE
-router.post('/', createUser);
+const apiRouter = express.Router();
+const formRouter = express.Router();
 
-// READ ROUTE
-router.get('/', controller.getUsers);
+apiRouter.get('/', userController.getUsers);
+apiRouter.get('/:id', userController.getUserById);
 
-export default router;
+formRouter.post('/', userController.createUser);
+
+export { apiRouter, formRouter };

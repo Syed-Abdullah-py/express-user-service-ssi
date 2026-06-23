@@ -1,14 +1,15 @@
-import { create } from './user.model';
+import User from './user.model.js';
 
-// REPOSITORY FOR CREATING USERS
 const createUser = async (data) => {
-  return await create(data);
+  return User.create(data);
 };
 
-// REPOSITORY FOR READING USERS
 const getUsers = async () => {
-  return await User.findAll();
+  return User.findAll({ order: [['createdAt', 'DESC']] });
 };
 
+const getUserById = async (id) => {
+  return User.findByPk(id);
+};
 
-export default { createUser, getUsers };
+export default { createUser, getUsers, getUserById };
