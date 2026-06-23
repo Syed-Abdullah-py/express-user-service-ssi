@@ -1,14 +1,16 @@
-import express from 'express';
-import userController from './user.controller.js';
+import { Router } from 'express';
+import * as userController from './user.controller.js';
 
-const apiRouter = express.Router();
-const formRouter = express.Router();
+export const apiRouter = Router();
+export const formRouter = Router();
 
+// JSON API (used by frontend fetch)
 apiRouter.get('/', userController.getUsers);
 apiRouter.get('/:id', userController.getUserById);
 
+// HTML form submissions (redirect responses)
 formRouter.post('/', userController.createUser);
+formRouter.post('/:id/delete', userController.deleteUser);
 formRouter.put('/:id', userController.updateUser);
 formRouter.post('/:id', userController.updateUser);
-
-export { apiRouter, formRouter };
+formRouter.delete('/:id', userController.deleteUser);

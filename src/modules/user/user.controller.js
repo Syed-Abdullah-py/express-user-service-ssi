@@ -1,43 +1,58 @@
-import userService from './user.service.js';
+import * as userService from './user.service.js';
 
-const createUser = async (req, res) => {
+const redirectWithError = (res, path, message) => {
+  res.redirect(`${path}?error=${encodeURIComponent(message)}`);
+};
+
+const sendJsonError = (res, err) => {
+  res.status(err.statusCode || 500).json({ error: err.message });
+};
+
+export const createUser = async (req, res) => {
   try {
     await userService.createUser(req.body);
     res.redirect('/users.html?created=1');
   } catch (err) {
-    const message = encodeURIComponent(err.message);
-    res.redirect(`/?error=${message}`);
+    redirectWithError(res, '/', err.message);
   }
 };
 
-const getUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
   try {
     const users = await userService.getUsers();
     res.json(users);
   } catch (err) {
-    res.status(err.statusCode || 500).json({ error: err.message });
+    sendJsonError(res, err);
   }
 };
 
-const getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
   try {
     const user = await userService.getUserById(req.params.id);
     res.json(user);
   } catch (err) {
-    res.status(err.statusCode || 500).json({ error: err.message });
+    sendJsonError(res, err);
   }
 };
 
-const updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
   const { id } = req.params;
 
   try {
     await userService.updateUser(id, req.body);
     res.redirect(`/user.html?id=${id}&updated=1`);
   } catch (err) {
-    const message = encodeURIComponent(err.message);
-    res.redirect(`/edit.html?id=${id}&error=${message}`);
+    redirectWithError(res, `/edit.html?id=${id}`, err.message);
   }
 };
 
-export default { createUser, getUsers, getUserById, updateUser };
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await userService.deleteUser(id);
+    res.redirect('/users.html?deleted=1');
+  } catch (err) {
+    redirectWithError(res, `/user.html?id=${id}`, err.message);
+  }
+};

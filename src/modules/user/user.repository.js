@@ -1,18 +1,13 @@
 import User from './user.model.js';
 
-const createUser = async (data) => {
-  return User.create(data);
-};
+export const createUser = (data) => User.create(data);
 
-const getUsers = async () => {
-  return User.findAll({ order: [['createdAt', 'DESC']] });
-};
+export const getUsers = () =>
+  User.findAll({ order: [['createdAt', 'DESC']] });
 
-const getUserById = async (id) => {
-  return User.findByPk(id);
-};
+export const getUserById = (id) => User.findByPk(id);
 
-const updateUser = async (id, data) => {
+export const updateUser = async (id, data) => {
   const user = await User.findByPk(id);
   if (!user) return null;
 
@@ -20,4 +15,10 @@ const updateUser = async (id, data) => {
   return user;
 };
 
-export default { createUser, getUsers, getUserById, updateUser };
+export const deleteUser = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) return false;
+
+  await user.destroy();
+  return true;
+};

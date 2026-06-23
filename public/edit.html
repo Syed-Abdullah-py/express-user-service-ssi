@@ -67,9 +67,9 @@
     <footer class="page-footer">SSI Decisions · User Management</footer>
   </div>
 
+  <script src="/js/common.js"></script>
   <script>
-    const userId = new URLSearchParams(window.location.search).get('id');
-    const urlError = new URLSearchParams(window.location.search).get('error');
+    const userId = App.getQueryParam('id');
 
     async function loadUser() {
       const loading = document.getElementById('loading');
@@ -104,12 +104,7 @@
         document.getElementById('email').value = user.email;
         document.getElementById('editForm').action = `/users/${userId}`;
 
-        if (urlError && urlError.trim()) {
-          const alert = document.getElementById('errorAlert');
-          alert.textContent = decodeURIComponent(urlError);
-          alert.hidden = false;
-          history.replaceState({}, '', `/edit.html?id=${userId}`);
-        }
+        App.showErrorFromQuery('errorAlert', `/edit.html?id=${userId}`);
 
         editContent.hidden = false;
         editFooter.hidden = false;
@@ -121,13 +116,7 @@
       }
     }
 
-    document.getElementById('editForm').addEventListener('submit', () => {
-      const btn = document.getElementById('submitBtn');
-      const text = document.getElementById('btnText');
-      btn.disabled = true;
-      text.textContent = 'Saving…';
-    });
-
+    App.setSubmitLoading('editForm', 'submitBtn', 'btnText', 'Saving…');
     loadUser();
   </script>
 </body>
