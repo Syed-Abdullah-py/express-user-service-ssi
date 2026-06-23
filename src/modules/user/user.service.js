@@ -4,4 +4,9 @@ const createUser = (data) => {
   return _createUser(data);
 };
 
-export default { createUser };
+const getUsers = () => {
+  return repo.getUsers();
+};
+
+
+export default { createUser, getUsers };
