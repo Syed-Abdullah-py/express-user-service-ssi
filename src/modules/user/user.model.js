@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { define } from '../../config/sequelize';
 
+// MODEL DEFINITION FOR USER
 const User = define('User', {
   name: {
     type: DataTypes.STRING,
