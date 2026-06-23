@@ -1,20 +1,30 @@
-import express, { urlencoded, static } from 'express';
+import express from 'express';
 import methodOverride from 'method-override';
-import { join } from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-import userRoutes from './modules/user/user.routes';
+import { apiRouter, formRouter } from './modules/user/user.routes.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, '../public')));
 
-app.use(static(join(__dirname, '../public')));
-
-app.use('/users', userRoutes);
+app.use('/api/users', apiRouter);
+app.use('/users', formRouter);
 
 app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '../public/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: 'Internal server error' });
 });
 
 export default app;
