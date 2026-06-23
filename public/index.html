@@ -55,23 +55,10 @@
     <footer class="page-footer">SSI Decisions · User Management</footer>
   </div>
 
+  <script src="/js/common.js"></script>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const error = params.get('error');
-
-    if (error && error.trim()) {
-      const alert = document.getElementById('errorAlert');
-      alert.textContent = decodeURIComponent(error);
-      alert.hidden = false;
-      history.replaceState({}, '', '/');
-    }
-
-    document.getElementById('createForm').addEventListener('submit', () => {
-      const btn = document.getElementById('submitBtn');
-      const text = document.getElementById('btnText');
-      btn.disabled = true;
-      text.textContent = 'Creating…';
-    });
+    App.showErrorFromQuery('errorAlert', '/');
+    App.setSubmitLoading('createForm', 'submitBtn', 'btnText', 'Creating…');
   </script>
 </body>
 </html>

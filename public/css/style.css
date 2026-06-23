@@ -370,10 +370,7 @@ body::before {
   gap: 14px;
   padding: 16px 20px;
   border-bottom: 1px solid var(--border-light);
-  text-decoration: none;
-  color: inherit;
   transition: background var(--transition);
-  cursor: pointer;
 }
 
 .user-item:last-child {
@@ -382,6 +379,16 @@ body::before {
 
 .user-item:hover {
   background: var(--brand-subtle);
+}
+
+.user-item-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
 }
 
 .user-item:hover .user-arrow {
@@ -397,13 +404,13 @@ body::before {
   border-radius: 50%;
   background: var(--brand-subtle);
   border: 1px solid var(--brand-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 600;
+  display: grid;
+  place-items: center;
   color: var(--brand);
-  letter-spacing: -0.02em;
+}
+
+.avatar svg {
+  display: block;
 }
 
 .user-info {
@@ -436,6 +443,36 @@ body::before {
   transition: opacity var(--transition), transform var(--transition);
 }
 
+.btn-danger {
+  background: transparent;
+  color: var(--brand);
+  border: 1px solid var(--brand-muted);
+  padding: 7px 12px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  flex-shrink: 0;
+}
+
+.btn-danger:hover {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+.delete-form {
+  flex-shrink: 0;
+}
+
+.actions-danger {
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+
 /* ── Detail page ── */
 
 .profile-header {
@@ -452,13 +489,14 @@ body::before {
   border-radius: 50%;
   background: var(--brand);
   color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
+}
+
+.profile-avatar svg {
+  display: block;
+  opacity: 0.95;
 }
 
 .profile-name {
