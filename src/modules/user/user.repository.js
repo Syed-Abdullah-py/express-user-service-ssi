@@ -12,4 +12,12 @@ const getUserById = async (id) => {
   return User.findByPk(id);
 };
 
-export default { createUser, getUsers, getUserById };
+const updateUser = async (id, data) => {
+  const user = await User.findByPk(id);
+  if (!user) return null;
+
+  await user.update(data);
+  return user;
+};
+
+export default { createUser, getUsers, getUserById, updateUser };

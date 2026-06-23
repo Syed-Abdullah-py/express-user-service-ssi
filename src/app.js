@@ -12,7 +12,14 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride('_method'));
+app.use(
+  methodOverride((req) => {
+    if (req.body?._method) return req.body._method;
+
+    const query = new URL(req.url, 'http://localhost').searchParams;
+    return query.get('_method') ?? undefined;
+  })
+);
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api/users', apiRouter);
